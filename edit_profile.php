@@ -1,14 +1,19 @@
 <?php
 
+//php 에러 확인 코드 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $id = $_POST['id'];
+    $birth = $_POST['birth'];
+    $phone_num = $_POST['phone_num'];
 
     require_once 'db.php';
 
-    $sql = "UPDATE users_table SET name='$name', email='$email' WHERE id='$id' ";
+    $sql = "UPDATE user SET name='$name', birth='$birth', phone_num='$phone_num' WHERE email='$email' ";
 
     if(mysqli_query($conn, $sql)) {
 
@@ -18,9 +23,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
           echo json_encode($result);
           mysqli_close($conn);
       }
-  }
 
-else{
+
+}else{
 
    $result["success"] = "0";
    $result["message"] = "error!";

@@ -69,8 +69,8 @@ $list= array();
 
 
 //for($i=0;$i<sizeof($items); $i++){
-for($i=0;$i<4; $i++){
-//     $title = $xml->msgBody->perforList[$i]->title;
+for($i=0;$i<2; $i++){
+//$title = $xml->msgBody->perforList[$i]->title;
 
 //$data = $xml->msgBody;
 $data = $xml->msgBody->perforList[$i];
