@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $index['name'] = $row['name'];
             $index['email'] = $row['email'];
             $index['id'] = $row['id'];
+            $index['profile_img'] = "http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/".$row['profile_img'];
+            $index['role'] = $row['role'];
 
             array_push($result['login'], $index);
 

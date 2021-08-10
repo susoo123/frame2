@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $index['email'] = $row['email'];
             $index['birth'] = $row['birth'];
             $index['phone_num'] = $row['phone_num'];
+            $index['profile_img'] = "http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/".$row['profile_img'];
             
 
             array_push($result['profile'], $index);
