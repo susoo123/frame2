@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
     $birth = $_POST['birth'];
     $phone_num = $_POST['phone_num'];
-    $img=$_POST['upload'];
+    $img = $_POST['upload'];
 
     require_once 'db.php';
 
