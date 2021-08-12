@@ -8,8 +8,8 @@ ini_set('display_errors', '1');
 
 $ch = curl_init();
 $url = 'http://www.culture.go.kr/openapi/rest/publicperformancedisplays/realm'; /*URL*/
-$queryParams = '?' . urlencode('ServiceKey') . '=WLT%2BoeODHTTqLXKHimPxENXZnLeOacqbt2d5ndqcmw6yFIZUqCYmuhaCtxMnzuKYC%2FtfXBoKdPyY1VVR0dqRNw%3D%3D'; /*Service Key*/
-//$queryParams = '?' . urlencode('ServiceKey') . '=ZoOVgdxeLX35DdZVFqlhUhcYooLtWQg2fAh3ywZD7%2F2ejv0cIBeunJ61aOK7TQM6jPXjxBx%2F18JBBbjKNth9VQ%3D%3D'; /*Service Key*/
+//$queryParams = '?' . urlencode('ServiceKey') . '=WLT%2BoeODHTTqLXKHimPxENXZnLeOacqbt2d5ndqcmw6yFIZUqCYmuhaCtxMnzuKYC%2FtfXBoKdPyY1VVR0dqRNw%3D%3D'; /*Service Key*/
+$queryParams = '?' . urlencode('ServiceKey') . '=ZoOVgdxeLX35DdZVFqlhUhcYooLtWQg2fAh3ywZD7%2F2ejv0cIBeunJ61aOK7TQM6jPXjxBx%2F18JBBbjKNth9VQ%3D%3D'; /*Service Key*/
 // $queryParams .= '&' . urlencode('keyword') . '=' . urlencode(''); /**/
 // $queryParams .= '&' . urlencode('sortStdr') . '=' . urlencode('2'); /**/
 // $queryParams .= '&' . urlencode('ComMsgHeader') . '=' . urlencode(''); /**/
