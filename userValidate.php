@@ -12,6 +12,7 @@
     mysqli_stmt_store_result($statement);
     mysqli_stmt_bind_result($statement, $userID);
 
+    
     $response = array();
     $response["success"] = true;
 

@@ -269,6 +269,7 @@ class SMTP
 
             return;
         }
+        
         switch ($this->Debugoutput) {
             case 'error_log':
                 //Don't output, just log

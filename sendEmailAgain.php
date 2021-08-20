@@ -37,6 +37,7 @@ http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/verify.php?email='
     // $body="http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/verify.php?email=$email";
     // $cc_mail="";
     // $bcc_mail="";
+    
 
     if ( mysqli_query($conn, $sql) ) {
         $result["success"] = "1";

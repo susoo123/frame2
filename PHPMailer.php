@@ -694,6 +694,7 @@ class PHPMailer
      */
     protected $language = [];
 
+    
     /**
      * The number of errors encountered.
      *

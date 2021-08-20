@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1'); 
 
 
-$ch = curl_init();
+$ch = curl_init(); //create a new cURL resource
 $url = 'http://www.culture.go.kr/openapi/rest/publicperformancedisplays/realm'; /*URL*/
 //$queryParams = '?' . urlencode('ServiceKey') . '=WLT%2BoeODHTTqLXKHimPxENXZnLeOacqbt2d5ndqcmw6yFIZUqCYmuhaCtxMnzuKYC%2FtfXBoKdPyY1VVR0dqRNw%3D%3D'; /*Service Key*/
 $queryParams = '?' . urlencode('ServiceKey') . '=ZoOVgdxeLX35DdZVFqlhUhcYooLtWQg2fAh3ywZD7%2F2ejv0cIBeunJ61aOK7TQM6jPXjxBx%2F18JBBbjKNth9VQ%3D%3D'; /*Service Key*/
@@ -28,17 +28,24 @@ $queryParams .= '&' . urlencode('rows') . '=' . urlencode('100'); /**/
 // $queryParams .= '&' . urlencode('gpsxto') . '=' . urlencode('129.101'); /**/
 // $queryParams .= '&' . urlencode('gpsyto') . '=' . urlencode('35.142'); /**/
 
+// set URL and other appropriate options
 curl_setopt($ch, CURLOPT_URL, $url . $queryParams);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($ch, CURLOPT_HEADER, FALSE);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+//curl_exec(); grab URL and pass it to the browser
 $response = curl_exec($ch);
-curl_close($ch);
+
+//close cURL resource, and free up systrem resouce
+curl_close($ch); 
+////////////////////////////////////////////여기까지는 홈페이지에 있는 코드 
 
 
+$xml = simplexml_load_string($response); //XML을 STRING으로 (Interprets a string of XML into an object)
 
-$xml = simplexml_load_string($response); //XML을 STRING으로 변환 
-$items = $xml->msgBody->perforList;
+
+$items = $xml->msgBody->perforList; 
 //var_dump($xml);
 
 $list= array();
@@ -69,7 +76,7 @@ $list= array();
 
 
 //for($i=0;$i<sizeof($items); $i++){
-for($i=0;$i<10; $i++){
+for($i=0;$i<2; $i++){
 //$title = $xml->msgBody->perforList[$i]->title;
 
 //$data = $xml->msgBody;

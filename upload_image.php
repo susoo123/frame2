@@ -11,6 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $path = "profile_image/$id.jpeg";
     //$finalPath = "ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/var/www/html/".$path;
 
+    
     require_once 'db.php';
 
     $sql = "UPDATE user SET photo='$path' WHERE email='$email' ";

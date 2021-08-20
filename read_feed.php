@@ -6,89 +6,63 @@ ini_set('display_errors', '1');
 
 
 if ($_SERVER['REQUEST_METHOD']=='GET') {
-
-
-    //$email = $_POST['email']; // 쉐어드에 저장한 이메일 값을 가져오기 
    
     require_once 'db.php';
 
-    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id ORDER BY feed_id DESC";
+    
+    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' ORDER BY feed_id DESC";
+   
 
     //$sql = "SELECT * FROM feed ORDER BY feed_id DESC";
-    $sql2 = "SELECT * FROM user";
+    // $sql2 = "SELECT * FROM user";
 
     $response = mysqli_query($conn, $sql);
-    $response2 = mysqli_query($conn, $sql2);
+    //$response2 = mysqli_query($conn, $sql2);
+   
 
     $result = array();
     $result['feed'] = array();
 
-    $result2 = array();
-    $result2['user'] = array();
+    $imgArray =array();
 
-    
-    if (mysqli_num_rows($response)) {
+    //이미지 경로 
+    $url ="http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/";
+   
+  
+    while($row = mysqli_fetch_array($response)){
+        $index['feed_id'] = $row['feed_id'];
+        $index['feed_user_id'] = $row['feed_user_id'];
+        $index['feed_contents'] = $row['feed_contents'];
+        $index['feed_date'] = $row['add_date'];
+
+
+        $index['del_status'] = $row['del_status'];
+        $index['feed_uid'] = $row['feed_uid'];
+
+        $index['name'] = $row['name'];
+        $index['email'] = $row['email'];
+        $index['profile_img'] = $url.$row['profile_img'];
         
-        //$row = mysqli_fetch_assoc($response);
-      
-
-            
-
-        //for($i=0;$i<mysqli_num_rows($response); $i++){
-         while($row = mysqli_fetch_array($response)){
-
-            $index['feed_id'] = $row['feed_id'];
-            $index['feed_user_id'] = $row['feed_user_id'];
-            $index['feed_contents'] = $row['feed_contents'];
-            $index['feed_date'] = $row['add_date'];
-            $index['feed_img'] = "http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/".$row['feed_img'];
-            $index['del_status'] = $row['del_status'];
-
-            $index['name'] = $row['name'];
-            $index['email'] = $row['email'];
-            $index['profile_img'] = "http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/".$row['profile_img'];
-            
-
-            array_push($result['feed'], $index);
-
-            }
         
-          
-            $result['success'] = "1";
-            $result['message'] = "success";
-            
-            echo json_encode($result);
-            mysqli_close($conn);
 
+        $index['imageArray'] = explode(',',$row['feed_img']); //디비에 담긴 string 데이터를 , 를 기준으로 배열로 변환
+            // $index['feed_img'] = $url.$imgUrl;
+            // array_push($imgArray, $index['feed_img']);
+            //$index['feed_img'] = $url.$row['feed_img'];
 
-        }
-        elseif(mysqli_num_rows($response2) === 1){
-            $row2 = mysqli_fetch_assoc($response2);
-
-            $index['name'] = $row2['name'];
-            $index['email'] = $row2['email'];
-            $index['profile_img'] = "http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/".$row2['profile_img'];
-            
-            array_push($result2['user'], $index);
-
-            $result2['success'] = "1";
-            $result2['message'] = "success";
-            
-            echo json_encode($result2);
-            mysqli_close($conn);
-
-        } 
-        else {
-
-            $result['success'] = "0";
-            $result['message'] = "피드 가져오기 실패";
-
-            echo json_encode($result);
-            mysqli_close($conn);
-
-        }
+        array_push($result['feed'], $index);
 
     }
+        
+    $result['success'] = "1";
+    $result['message'] = "success";
+    
+    echo json_encode($result);
+    mysqli_close($conn);
+
+}
+
+ 
 
  
 ?>

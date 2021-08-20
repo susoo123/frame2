@@ -44,6 +44,7 @@ $mail->Host = 'smtp.naver.com';
 // - 587 for SMTP+STARTTLS
 $mail->Port = 465;
 
+
 //Set the encryption mechanism to use:
 // - SMTPS (implicit TLS on port 465) or
 // - STARTTLS (explicit TLS on port 587)

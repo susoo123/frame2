@@ -30,4 +30,5 @@ ini_set('display_errors', '1'); //이거 php에러보는 거 확인하고
    {
     echo mysqli_errno($connect);
    }
+   
 ?>

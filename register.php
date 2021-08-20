@@ -74,6 +74,7 @@ http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/verify.php?email='
 ?>
 
 
+
 <?php
 // $email = $_POST["email"]; //이메일과 비밀번호를 post로 받겠다.
 // $pw = $_POST["pw"];
