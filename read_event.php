@@ -1,8 +1,7 @@
 <?php
-
 //php 에러 확인 코드 
 error_reporting(E_ALL);
-ini_set('display_errors', '1'); 
+ini_set('display_errors', '1');
 
 
 if ($_SERVER['REQUEST_METHOD']=='GET') {
@@ -10,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     require_once 'db.php';
 
     
-    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' ORDER BY feed_id DESC";
+    $sql ="SELECT * FROM event ORDER BY event_id DESC";
    
 
     //$sql = "SELECT * FROM feed ORDER BY feed_id DESC";
@@ -21,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
    
 
     $result = array();
-    $result['feed'] = array();
+    $result['event'] = array();
 
     $imgArray =array();
 
@@ -30,27 +29,23 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
    
   
     while($row = mysqli_fetch_array($response)){
-        $index['feed_id'] = $row['feed_id'];
-        $index['feed_user_id'] = $row['feed_user_id'];
-        $index['feed_contents'] = $row['feed_contents'];
-        $index['feed_date'] = $row['add_date'];
+        $index['title'] = $row['title'];
+        $index['event_start_date'] = $row['event_start_date'];
+        $index['event_end_date'] = $row['event_end_date'];
+        $index['num_people'] = $row['num_people'];
+        $index['event_id'] = $row['event_id'];
+        $index['contents'] = $row['contents'];
+        $index['img'] = $row['img'];
 
-
-        $index['del_status'] = $row['del_status'];
-        $index['feed_uid'] = $row['feed_uid'];
-
-        $index['name'] = $row['name'];
-        $index['email'] = $row['email'];
-        $index['profile_img'] = $url.$row['profile_img'];
         
         
 
-        $index['imageArray'] = explode(',', $row['feed_img']); //디비에 담긴 string 데이터를 , 를 기준으로 배열로 변환
+       // $index['imageArray'] = explode(',', $row['feed_img']); //디비에 담긴 string 데이터를 , 를 기준으로 배열로 변환
             // $index['feed_img'] = $url.$imgUrl;
             // array_push($imgArray, $index['feed_img']);
             //$index['feed_img'] = $url.$row['feed_img'];
 
-        array_push($result['feed'], $index);
+        array_push($result['event'], $index);
 
     }
         
@@ -60,9 +55,23 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     echo json_encode($result);
     mysqli_close($conn);
 
+
+}else{
+
+    $result['success'] = "0";
+    $result['message'] = "fail";
+    echo json_encode($result);
+    mysqli_close($conn);
+
 }
 
  
 
- 
+
+
+
+
+
+
+
 ?>

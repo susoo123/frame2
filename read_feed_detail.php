@@ -5,12 +5,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1'); 
 
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
    
     require_once 'db.php';
 
+    $feed_id = $_POST['feed_id'];
     
-    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' ORDER BY feed_id DESC";
+    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' AND feed_id = $feed_id";
    
 
     //$sql = "SELECT * FROM feed ORDER BY feed_id DESC";

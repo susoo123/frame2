@@ -11,7 +11,7 @@ $connect = mysqli_connect('localhost', 'soo123', 'ksy9029', 'soo123');
 
 
 $feed_uid = $_POST['feed_uid'];
-$sql = "UPDATE feed SET del_status = '1' WHERE feed_uid = '$feed_uid' ";
+$sql = "UPDATE feed SET del_status = '1' WHERE feed_id = '$feed_uid' ";
  
 // $result = mysqli_query($connect,$sql);
  

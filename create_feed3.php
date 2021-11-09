@@ -1,5 +1,7 @@
 <?php
 
+//얘가 어플에서 실제로 쓰이는 코드 
+
 //php 에러 확인 코드 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -17,6 +19,11 @@ ini_set('display_errors', '1');
     //받은 이미지 파일들의 개수
     $cntImage = $_POST['cntImage'];
 
+  
+ //이미지 경로 
+ $url ='http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/';
+
+
     
     $imgArray = array(); //안드로이드에서 보낸 이미지 file을 받기 위해 만든 array
 
@@ -30,24 +37,35 @@ ini_set('display_errors', '1');
         if(is_null($srcName)){
             $uploads_dir = NULL;
         }else{
-            $uploads_dir = 'profile_image/' . date('Ymd_his') . $srcName;   
+            $uploads_dir = 'profile_image/' . date('Ymd_his') . $srcName; 
+            //$uploads_dir = 'http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/' . date('Ymd_his') . $srcName;  
+           
         }
 
         array_push($imgArray, $uploads_dir);
 
-        $result = move_uploaded_file($tmpName, $uploads_dir);
-       
+        $result = move_uploaded_file($tmpName, $uploads_dir);//서버에 저장되는 부분
+        $uriList[] = $url.$uploads_dir;
    }
      
+   // 내용1 a.jpg
+   //내용1 b.jpg
 
         //이미지 파일 업로드 실패시 알려줍니다.
         if($result){
            
     
-            $imgdata = implode(',',$imgArray); //imgArray를 string으로 변환 
+            $imgdata = implode(',',$uriList); //imgArray를 string으로 변환 
+            // $imgdata = implode(',',$imgArray); //imgArray를 string으로 변환 
+         
+           
+        
 
             //[a,b,c]
-            // a,b,c
+            //a,b,c
+
+            // Array,a,Array,b
+
             $arr['upload'] = "1";
 
             $sql = "INSERT INTO feed
@@ -66,6 +84,7 @@ ini_set('display_errors', '1');
     
         }else{
     
+            //업로드 실패시 
             $arr['upload'] = "-1";
     
             }
