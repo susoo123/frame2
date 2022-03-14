@@ -73,20 +73,12 @@ ini_set('display_errors', '1');
    
 
 
-    $sql = "INSERT INTO chat_room
-    (user_id_chat,chat_text )
-    VALUES(
-            
-            '{$_POST['user_id2']}',
-            '{$_POST['sendmsg']}'
-            )
-        
-            ";
+    
            
             // mysqli_query($conn, $sql);
             // mysqli_close($conn); 
 
-            $sql2 = "INSERT INTO chat_room
+            $sql = "INSERT INTO chat_room
     (user_id_chat,chat_text )
     VALUES(
             '{$_POST['user_id2']}',
@@ -94,7 +86,7 @@ ini_set('display_errors', '1');
             )
         
             ";
-    $res = mysqli_query($conn, $sql2);
+    $res = mysqli_query($conn, $sql);
     if($res) {
         // 포스트 저장 완료
         $result["success"] = true;

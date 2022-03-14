@@ -5,24 +5,22 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1'); 
 
 
-if ($_SERVER['REQUEST_METHOD']=='GET') {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
    
     require_once 'db.php';
+    $user_id = $_POST['user_id'];
 
     
-    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' ORDER BY feed_id DESC";
+    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE feed_user_id = $user_id AND del_status ='0' ORDER BY feed_id DESC";
    
 
-    //$sql = "SELECT * FROM feed ORDER BY feed_id DESC";
-    // $sql2 = "SELECT * FROM user";
+   
 
     $response = mysqli_query($conn, $sql);
-    //$response2 = mysqli_query($conn, $sql2);
-
-
+    
 
     $result = array();
-    $result['feed'] = array();
+    $result['myfeed'] = array();
 
     $imgArray =array();
 
@@ -36,15 +34,6 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         $index['feed_contents'] = $row['feed_contents'];
         $index['feed_date'] = $row['add_date'];
 
-        $sql2 ="SELECT COUNT(*) FROM comments WHERE feed_id = {$row['feed_id']}  ";
-        $response2 = mysqli_query($conn, $sql2);
-        
-        while($row2 = mysqli_fetch_assoc($response2))
-    {
-        array_push($result, array(
-            'comment_num' => $row2['COUNT(*)']
-        ));
-    }
 
         $index['del_status'] = $row['del_status'];
         $index['feed_uid'] = $row['feed_uid'];
@@ -60,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
             // array_push($imgArray, $index['feed_img']);
             //$index['feed_img'] = $url.$row['feed_img'];
 
-        array_push($result['feed'], $index);
+        array_push($result['myfeed'], $index);
 
     }
         

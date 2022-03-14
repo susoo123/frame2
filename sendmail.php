@@ -54,20 +54,20 @@ $mail->SMTPSecure ="ssl";
 $mail->SMTPAuth = true;
 
 //Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = 'aperie230@naver.com';
+$mail->Username = 'ksy930613@naver.com';
 
 //Password to use for SMTP authentication
-$mail->Password = 'GQ1Y234Z39J9';
+$mail->Password = 'dododo112!!';
 
 //Set who the message is to be sent from
 //Note that with gmail you can only use your account address (same as `Username`)
 //or predefined aliases that you have configured within your account.
 //Do not use user-submitted addresses in here
-$mail->setFrom('aperie230@naver.com', 'Frame 관리자');
+$mail->setFrom('ksy930613@naver.com', 'Frame 관리자');
 
 //Set an alternative reply-to address
 //This is a good place to put user-submitted addresses
-$mail->addReplyTo('aperie230@naver.com', 'Frame 관리자');
+$mail->addReplyTo('ksy930613@naver.com', 'Frame 관리자');
 
 //Set who the message is to be sent to 받는 사람 
 

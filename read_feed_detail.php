@@ -9,20 +9,26 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
    
     require_once 'db.php';
 
-    $feed_id = $_POST['feed_id'];
+    $feed_id_i = $_POST['feed_id_i'];
+
+    $sql ="SELECT * FROM feed Left Outer JOIN user ON feed_user_id = id 
     
-    $sql ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id WHERE del_status ='0' AND feed_id = $feed_id";
+    Left Outer join comments ON feed_id = feed_id
+    
+     WHERE del_status ='0' AND  feed_id='$feed_id_i' ";
+    
+    $sql2 ="SELECT * FROM feed INNER JOIN user ON feed_user_id = id  WHERE del_status ='0' AND  feed_id='$feed_id_i' ";
+    //$sql2 ="SELECT * FROM comments INNER JOIN feed on feed_id='$feed_id_i' ";
    
 
-    //$sql = "SELECT * FROM feed ORDER BY feed_id DESC";
-    // $sql2 = "SELECT * FROM user";
+   
 
-    $response = mysqli_query($conn, $sql);
-    //$response2 = mysqli_query($conn, $sql2);
+    $response = mysqli_query($conn, $sql2);
+  
    
 
     $result = array();
-    $result['feed'] = array();
+    $result['feed_detail'] = array();
 
     $imgArray =array();
 
@@ -30,7 +36,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     $url ="http://ec2-52-79-204-252.ap-northeast-2.compute.amazonaws.com/profile_image/";
    
   
-    while($row = mysqli_fetch_array($response)){
+    if ( mysqli_num_rows($response) === 1 ) {
+
+        $row = mysqli_fetch_assoc($response);
+
+        if($row['feed_id'] == $feed_id_i){
+
         $index['feed_id'] = $row['feed_id'];
         $index['feed_user_id'] = $row['feed_user_id'];
         $index['feed_contents'] = $row['feed_contents'];
@@ -44,22 +55,28 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $index['email'] = $row['email'];
         $index['profile_img'] = $url.$row['profile_img'];
         
+       // $index['comment_id'] = $row['comment_id'];
         
 
         $index['imageArray'] = explode(',', $row['feed_img']); //디비에 담긴 string 데이터를 , 를 기준으로 배열로 변환
-            // $index['feed_img'] = $url.$imgUrl;
-            // array_push($imgArray, $index['feed_img']);
-            //$index['feed_img'] = $url.$row['feed_img'];
+            
 
-        array_push($result['feed'], $index);
+        array_push($result['feed_detail'], $index);
+        
+        $result['success'] = "1";
+        $result['message'] = "success";
+        
+        echo json_encode($result);
+        mysqli_close($conn);
+
+        }
+
+
 
     }
-        
-    $result['success'] = "1";
-    $result['message'] = "success";
+
     
-    echo json_encode($result);
-    mysqli_close($conn);
+   
 
 }
 

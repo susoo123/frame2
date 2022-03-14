@@ -38,8 +38,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     //성공!!
     $sql4="SELECT *
     FROM chat_room INNER JOIN user WHERE user_id_chat = id AND chat_id IN ( 
-        SELECT MAX(chat_id) FROM chat_room GROUP BY user_id_chat
-        )";
+        SELECT MAX(chat_id) FROM chat_room  GROUP BY user_id_chat 
+        ) order by chat_id desc";
+        
 // SELECT o.*
 // FROM `Persons` o                    # 'o' from 'oldest person in group'
 //   LEFT JOIN `Persons` b             # 'b' from 'bigger age'
@@ -77,9 +78,12 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 while($row = mysqli_fetch_array($response)){
  //while($row = mysqli_query($conn, $sql)){
 
+
+        if($row['id'] !== "50"){
         //채팅방 정보 
         $index['chat_text_latest'] = $row['chat_text'];
         $index['chat_date'] = $row['chat_date'];
+        $index['type'] = $row['type'];
         //$index['user_id'] = $row['user_id'];
 
 
@@ -97,6 +101,7 @@ while($row = mysqli_fetch_array($response)){
             //$index['feed_img'] = $url.$row['feed_img'];
 
         array_push($result['chatList'], $index);
+        }
 
     }
         

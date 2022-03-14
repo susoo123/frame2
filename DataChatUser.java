@@ -14,5 +14,7 @@ public class DataChatUser {
      this.Userid = UserId;
      this.output = output;
     }
+
+    
    
    }

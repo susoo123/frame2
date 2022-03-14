@@ -10,8 +10,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
     $event_id = $_POST['event_id'];
 
-    
-    $sql ="SELECT * FROM event_register WHERE event_id = '$event_id' AND picked = 'Y'; ";
+    //$sql ="SELECT * FROM event_register WHERE event_id = '$event_id' AND picked = 'Y' ";
+   
+    $sql ="SELECT * FROM event_register  WHERE event_id = '$event_id' AND picked = 'Y'  ";
    
 
     $response = mysqli_query($conn, $sql);
@@ -29,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                 $index['user_id'] = $row['user_id'];
                 $index['user_name'] = $row['user_name'];
                 $index['user_email'] = $row['user_email'];
+                $index['send_check'] = $row['send_check'];
 
                 array_push($result['winner'], $index);
                 
